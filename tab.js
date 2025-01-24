@@ -3,6 +3,9 @@ const $doc = document;//変数名に$をつけると変数はDOM要素だよと�
 const $tab = $doc.getElementById('js-tab');// JavaScriptが引っかかるものはなるべくidを使ってあげる.名前にプレフィックス（説頭詞）でjs-をつける
 const $nav = $tab.querySelectorAll('[data-nav]');//querySelectorAll=DOM要素の中から条件に当てはまるDOMを取得する
 const $content = $tab.querySelectorAll('[data-content]')
+const ACTIVE_CLASS = 'is-active';
+const navLen = $nav.length;
+
 //初期化
 const init = () => {
   $content[0].computedStyleMap.display = 'block';
@@ -19,22 +22,22 @@ const handleClick = (e) => {
 
   //対象外のnav,content全て一旦リセットする
   let index = 0;
-  while(index < $nav.length){
+  while(index < navLen){
     $content[index].style.display = 'none';
-    $nav[index].classList.remove('is-active');
+    $nav[index].classList.remove('ACTIVE_CLASS');
     index++;
   }
 
   //対象のコンテンツをアクティブ化する
   $tab.querySelectorAll('[data-content="' + targetVal + '"]')[0].style.display = 'block';
-  $nav[targetVal].classList.add('is-active');//DOM属性についているclass属性の一覧化を取得する
+  $nav[targetVal].classList.add('ACTIVE_CLASS');//DOM属性についているclass属性の一覧化を取得する
                         //add=リストの中に文字列を追加するという意味
   
 };
 
 //全nav要素に対して関数を適用・発火
 let index = 0;
-while(index < $nav.length){//$nav.length=nav要素の数
+while(index < navLen){//$nav.length=nav要素の数
   $nav[index].addEventListener('click', (e) => handleClick(e));
   index++;
 }
